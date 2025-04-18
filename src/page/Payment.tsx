@@ -1,10 +1,11 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { Breadcrumb, BreadcrumbItem } from "flowbite-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoCardOutline } from "react-icons/io5";
 import { FiCalendar } from "react-icons/fi";
 import { IoKeyOutline } from "react-icons/io5";
 import { useBookingStore } from "../store/bookingDetail";
+import { LoadingOverlay } from "../components/LoadingOverlay";
 
 function Payment() {
   const { id, title } = useParams();
@@ -16,6 +17,12 @@ function Payment() {
   const [lName, setLname] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500);
+  }, []);
 
   const MovieDetailBookingData = useBookingStore((state) => state.bookingData);
   console.log(MovieDetailBookingData);
@@ -54,13 +61,13 @@ function Payment() {
       email !== "" &&
       phoneNumber !== ""
     ) {
-      alert("Payment successful!");
+      alert("Payment successful! Thank you for your purchase.");
       useBookingStore.getState().clearBookingData();
-      setTimeout(() => navigateToHome("/"), 3000);
+      navigateToHome("/");
     }
   };
   return (
-    <>
+    <LoadingOverlay isLoading={isLoading}>
       <div className="container mx-auto">
         <div className="mt-4 mx-8 lg:mx-0 flex flex-row justify-center items-center">
           <Breadcrumb>
@@ -537,7 +544,7 @@ function Payment() {
           {/*End Detail */}
         </div>
       </div>
-    </>
+    </LoadingOverlay>
   );
 }
 
