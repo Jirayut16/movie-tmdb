@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+#root {
+  @apply flex flex-col min-h-screen font-lexend bg-light scroll-smooth box-border;
+}
+
+main {
+  @apply flex flex-col flex-1;
+}
+#overlay * {
+  z-index: 10;
+}
+#swiperBG {
+  background-image: url("../public/Group.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: tomato;
+}
